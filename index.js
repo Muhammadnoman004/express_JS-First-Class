@@ -23,12 +23,32 @@ const AllData = [
     }
 ]
 
+//  get data    //
+
 app.use(express.json());
 app.get('/', (req, res) => {
     console.log("Server is running...");
     res.send(AllData);
 })
+
+//  add data   //
+
 app.post('/', (req, res) => {
     console.log("Server Chal raha hai", req.body);
     AllData.push(req.body);
+})
+
+//  delete data   //
+
+app.delete('/:id', (req, res) => {
+    let indexes = AllData.findIndex(data => data.id == req.params.id)
+    AllData.splice(indexes, 1)
+})
+
+//  update data    //
+
+app.put('/:id', (req, res) => {
+    let indexes = AllData.findIndex(data => data.id == req.params.id)
+    AllData.splice(indexes, 1, req.body)
+    console.log(req.body);
 })
